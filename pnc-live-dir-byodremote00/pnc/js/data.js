@@ -87,7 +87,7 @@ window.PNC = window.PNC || {};
     '43': 'THAMES VALLEY', '44': 'HAMPSHIRE', '45': 'SURREY', '46': 'KENT', '47': 'SUSSEX',
     '48': 'CITY OF LONDON', '50': 'DEVON & CORNWALL', '52': 'AVON & SOMERSET',
     '53': 'GLOUCESTERSHIRE', '54': 'WILTSHIRE', '55': 'DORSET', '60': 'NORTH WALES',
-    '61': 'GWENT', '62': 'SOUTH WALES', '63': 'DYFED-POWYS', '99': 'ROLEPLAY CONSTABULARY'
+    '61': 'GWENT', '62': 'SOUTH WALES', '63': 'DYFED-POWYS'
   };
 
   /* transaction sets that a user-id can be given */
