@@ -624,7 +624,7 @@
       `TERMINAL ${P.db.term} ............. REGISTERED`,
       'CONNECTING TO HOST PNC-A ..... CONNECTED',
       '',
-      'PNC SIMULATION - ALL RECORDS ARE FICTIONAL'
+      'VMETA767 (zdb0001pnc) provided by Home Office'
     ];
     const c = $('#content');
     c.innerHTML = '';
