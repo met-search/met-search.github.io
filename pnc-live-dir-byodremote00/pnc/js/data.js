@@ -370,7 +370,7 @@ window.PNC = window.PNC || {};
     const now = new Date().toISOString();
     return [
       { id: 'ADMIN', pw: 'ADMIN', name: 'SYSTEM ADMINISTRATOR', fs: '99ZZ', role: 'ADMIN', modes: ['LIVE', 'TRNG', 'DEMO'], created: now, lastOn: null, lastOff: null, fails: 0, barred: false },
-      { id: 'SECAMB004', pw: 'tavaius', name: 'SEC AMBULANCE', fs: '46KA', role: 'UPD', modes: ['LIVE'], created: now, lastOn: null, lastOff: null, fails: 0, barred: false },
+      { id: 'SECAMB08', pw: 'TW2004', name: 'SEC AMBULANCE', fs: '46KA', role: 'UPD', modes: ['LIVE'], created: now, lastOn: null, lastOff: null, fails: 0, barred: false },
       { id: '99PS5678', pw: 'UPDATE01', name: 'PS 5678 CUSTODY', fs: '99AA', role: 'UPD', modes: ['LIVE', 'TRNG'], created: now, lastOn: null, lastOff: null, fails: 0, barred: false }
     ];
   }
