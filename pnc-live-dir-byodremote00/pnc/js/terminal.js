@@ -517,7 +517,7 @@
   const prefs = (() => { try { return JSON.parse(localStorage.getItem('pnc.prefs')) || {}; } catch (e) { return {}; } })();
   function applyPrefs() {
     document.body.dataset.ph = prefs.ph || 'green';
-    document.body.classList.toggle('noscan', !!prefs.noscan);
+    document.body.classList.toggle('noscan', prefs.noscan !== false);
     document.documentElement.style.setProperty('--zoom', prefs.zoom || 1);
   }
   function savePrefs() { try { localStorage.setItem('pnc.prefs', JSON.stringify(prefs)); } catch (e) { /* ignore */ } applyPrefs(); }
