@@ -358,12 +358,12 @@
         ['        MODE      : ', { f: 'mode', len: 4 }, '                NEW PASSWORD  : ', { f: 'npw', len: 8, pw: true }],
         '', '', '', '',
         P.center('WARNING'),
-        P.center('YOU ARE ACCESSING A POLICE COMPUTER.'),
+        P.center('YOU ARE ACCESSING THE POLICE NATIONAL COMPUTER.'),
         P.center('UNAUTHORISED ACCESS TO OR MISUSE OF THIS SYSTEM IS PROHIBITED'),
         P.center('AND CONSTITUTES AN OFFENCE UNDER THE COMPUTER MISUSE ACT 1990.'),
         P.center('IF YOU DO NOT HAVE AUTHORISATION YOU MUST NOT LOGON TO THIS SYSTEM'),
         '', '',
-        [{ t: P.center('ROLEPLAY SIMULATION  -  DEFAULT ACCOUNT ADMIN / ADMIN  -  MODES LIVE TRNG DEMO'), c: 'dim' }]
+        [{ t: P.center('ALL ACTIONS ARE MONITORED AND RECORDED AT ALL TIMES'), c: 'dim' }]
       ]
     };
     T.screen = s;
