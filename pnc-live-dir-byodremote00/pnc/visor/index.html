@@ -1,0 +1,86 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>ViSOR - Violent and Sex Offender Register</title>
+<link rel="stylesheet" href="css/visor.css">
+</head>
+<body>
+
+<!-- ============ LOGON ============ -->
+<div id="login-screen">
+  <div class="login-logo" id="login-logo"></div>
+  <div class="login-body">
+    <p>You are about to log on to a <b>CONFIDENTIAL</b> system.</p>
+    <p>Access to the ViSOR system is strictly controlled. It is an offence to attempt to gain
+      unauthorised access to this system, and any unauthorised access may result in either Discipline or Criminal Proceedings.</p>
+    <p>The highest level of <b>Protectively Marked Information</b> that you may process or store on this system is RESTRICTED.</p>
+    <p>Any information viewed or obtained should be treated in the appropriate manner as set out in the Government Protective
+      Marking Scheme (GPMS). Further advice on GPMS can be obtained from your local Information Security Officer.</p>
+    <p>Please note that the address data on this system is sourced from the national address file. Users of this data
+      may require suitable licences before accessing the data.</p>
+
+    <form class="login-box" id="login-form" autocomplete="off">
+      <h2>ViSOR SYSTEM Login</h2>
+      <div class="login-row"><label for="lg-user">Username:</label><input type="text" id="lg-user" spellcheck="false"></div>
+      <div class="login-row"><label for="lg-pass">Password:</label><input type="password" id="lg-pass"></div>
+      <div class="login-actions"><button type="submit">Login</button></div>
+      <div id="login-msg" role="alert"></div>
+    </form>
+    <p class="login-foot">FICTIONAL SYSTEM FOR ROLEPLAY USE ONLY. No real persons or records are held.</p>
+  </div>
+</div>
+
+<!-- ============ APPLICATION ============ -->
+<div id="app" hidden>
+  <div id="brand"><a href="#home">ViSOR</a></div>
+  <header id="topbar">
+    <span id="clock"></span>
+    <a class="tb-btn" href="#home">Home</a>
+    <a class="tb-btn" href="#info">Info</a>
+    <a class="tb-btn" href="#help">Help</a>
+    <a class="tb-btn" href="#" id="logout">Log out</a>
+    <span id="timer" title="Session time remaining">30:00</span>
+  </header>
+
+  <nav id="sidebar">
+    <div class="sb-head">My ViSOR</div>
+    <a class="sb-link" href="#diary">Diary</a>
+    <a class="sb-sub" href="#diary/previous">Previous</a>
+    <a class="sb-link" href="#todo">To Do List</a>
+    <a class="sb-sub" href="#todo/previous">Previous</a>
+    <a class="sb-link" href="#nominals">Nominals</a>
+    <a class="sb-sub" href="#new">Create New</a>
+    <a class="sb-link" href="#generate">Generate</a>
+    <a class="sb-link" href="#stats">Statistics</a>
+    <span class="sb-sub disabled" title="No previous statistics available">Previous</span>
+
+    <div class="sb-head">Find / Search</div>
+    <a class="sb-link" href="#find">Find Nominal</a>
+    <a class="sb-link" href="#advanced/map">Advanced Search</a>
+    <a class="sb-link" href="#orphaned">Find Orphaned</a>
+    <a class="sb-link" href="#meeting">Meeting</a>
+
+    <div class="sb-head">User Details</div>
+    <div class="sb-crest" id="sb-crest"></div>
+    <div class="sb-user" id="sb-user"></div>
+    <a class="sb-link" href="#password">Password Reset</a>
+    <a class="sb-link" href="#contact">Contact Details</a>
+    <a class="sb-link" href="#moveuser">Move User</a>
+    <a class="sb-link" href="#whitepages">White Pages</a>
+    <a class="sb-link" href="#messages" id="sb-messages">0 Messages</a>
+    <a class="sb-link" href="#messages" id="sb-messages-new">(0 New)</a>
+    <a class="sb-link" href="#release">Release Notes</a>
+  </nav>
+
+  <main id="main"></main>
+</div>
+
+<div id="tooltip" hidden></div>
+
+<script src="js/data.js"></script>
+<script src="js/map.js"></script>
+<script src="js/app.js"></script>
+</body>
+</html>

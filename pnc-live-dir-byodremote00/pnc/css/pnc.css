@@ -1,0 +1,224 @@
+:root {
+  --fg: #3ee27a;
+  --fg-dim: #239a50;
+  --fg-glow: rgba(62, 226, 122, .35);
+  --bg: #020503;
+  --chrome: #0b0f0d;
+  --chrome-line: #8fb7b2;
+  --chrome-text: #d6e2e0;
+  --field-bg: #cfd4d0;
+  --field-fg: #4a4f4c;
+  --warn-bg: #f2e34b;
+  --warn-fg: #111;
+  /* scale the 80-column screen to fill the window: limited by width or by height, whichever is tighter */
+  --zoom: 1;
+  --fs: calc(min((100vw - 8px) / 51, (100dvh - 8px) / 45) * var(--zoom));
+  color-scheme: dark;
+}
+body[data-ph="amber"] { --fg: #ffb547; --fg-dim: #b97a1e; --fg-glow: rgba(255, 181, 71, .35); }
+body[data-ph="white"] { --fg: #e4ecea; --fg-dim: #8a9592; --fg-glow: rgba(228, 236, 234, .25); }
+
+* { box-sizing: border-box; }
+html, body { margin: 0; height: 100%; }
+body {
+  background: var(--bg);
+  color: var(--fg);
+  font-family: "Courier Prime", "Courier New", Courier, monospace;
+  font-weight: 700;
+  font-size: var(--fs);
+  overflow: hidden;
+}
+
+/* the terminal fills the whole browser window */
+#crt {
+  width: 100vw;
+  height: 100vh;
+  height: 100dvh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  position: relative;
+}
+
+/* ---- chrome (top / status bars), styled like the emulator in the reference ---- */
+#topbar, #statusbar {
+  font-family: Arial, Helvetica, sans-serif;
+  font-weight: 400;
+  font-size: .78em;
+  color: var(--chrome-text);
+  background: var(--chrome);
+}
+.tb-row, #statusbar { display: flex; gap: 3px; padding: 3px 3px 0; }
+#statusbar { padding: 3px; border-top: 1px solid var(--chrome-line); }
+.box {
+  border: 1px solid var(--chrome-line);
+  padding: 2px 8px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  min-width: 0;
+}
+.box.grow { flex: 1; text-align: center; }
+.sim { color: #9fb0ad; font-size: .9em; }
+#tb-conn.ok { color: var(--chrome-text); }
+.tb-menu {
+  display: flex;
+  align-items: center;
+  border-bottom: 1px solid var(--chrome-line);
+  padding: 1px 3px;
+  gap: 2px;
+}
+.tb-menu .spacer { flex: 1; }
+.tb-menu button, .dropdown button {
+  font: inherit;
+  color: var(--chrome-text);
+  background: none;
+  border: 0;
+  padding: 1px 10px;
+  cursor: pointer;
+}
+.tb-menu button:hover:not(:disabled) { text-decoration: underline; }
+.tb-menu button:disabled { color: #5f6b69; cursor: default; }
+.tb-menu > button { border: 1px solid var(--chrome-line); }
+.menu { position: relative; }
+.dropdown {
+  display: none;
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 10;
+  background: #111816;
+  border: 1px solid var(--chrome-line);
+  min-width: 22ch;
+  padding: 3px 0;
+}
+.dropdown.open { display: block; }
+.dropdown button { display: block; width: 100%; text-align: left; padding: 4px 12px; white-space: nowrap; }
+.dropdown button:hover { background: #23302c; }
+
+/* ---- the green screen ---- */
+#screen {
+  position: relative;
+  flex: 1;
+  min-height: 0;
+  padding: .6em 1.2em .5em;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  overflow-y: auto;
+  text-shadow: 0 0 4px var(--fg-glow);
+}
+#screen > #content, #screen > #msg, #screen > #cmd { width: 80ch; max-width: 100%; }
+#screen::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  pointer-events: none;
+  background: repeating-linear-gradient(to bottom, rgba(0, 0, 0, .22) 0 1px, transparent 1px 3px);
+  mix-blend-mode: multiply;
+}
+body.noscan #screen::after { display: none; }
+#content { flex: 1 0 auto; }
+.row { white-space: pre; line-height: 1.32em; min-height: 1.32em; }
+
+.fld {
+  font: inherit;
+  font-size: 1em;
+  line-height: 1.15em;
+  padding: 0;
+  margin: 0;
+  border: 0;
+  border-radius: 0;
+  background: var(--field-bg);
+  color: var(--field-fg);
+  text-transform: uppercase;
+  caret-color: #000;
+  outline: none;
+  text-shadow: none;
+  vertical-align: baseline;
+  box-sizing: content-box;
+}
+.fld::placeholder { color: #6c726e; letter-spacing: 0; opacity: 1; }
+.fld:focus { background: #e8ebe8; box-shadow: inset 0 -2px 0 #e0b400; }
+.fld[type="password"], .fld[data-mixed] { text-transform: none; }
+
+.rev { background: var(--fg); color: var(--bg); text-shadow: none; }
+.warn { background: var(--warn-bg); color: var(--warn-fg); text-shadow: none; }
+.dim { color: var(--fg-dim); }
+.bright { color: #b9ffd2; }
+body[data-ph="amber"] .bright { color: #ffe0a8; }
+.blink { animation: blink 1s steps(1) infinite; }
+@keyframes blink { 50% { opacity: 0; } }
+
+#msg { min-height: 1.32em; line-height: 1.32em; white-space: pre; }
+#msg span { background: var(--fg); color: var(--bg); text-shadow: none; padding: 0 .5ch; }
+#msg.err span { background: var(--warn-bg); color: var(--warn-fg); }
+#cmd { border-top: 1px solid var(--fg-dim); padding-top: .3em; }
+#cmd[hidden] { display: none; }
+
+/* ---- function key strip, after the reference's bottom toolbar ---- */
+#fkeys {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 4px;
+  padding: 5px;
+  background: linear-gradient(#26302d, #141a18);
+  border-top: 1px solid #000;
+}
+#fkeys button {
+  flex: 1 1 auto;
+  font-family: Arial, Helvetica, sans-serif;
+  font-size: .72em;
+  font-weight: 700;
+  color: #dfe8e6;
+  background: linear-gradient(#3b4945, #222b28);
+  border: 1px solid #5b6d68;
+  border-radius: 3px;
+  padding: 5px 6px;
+  cursor: pointer;
+}
+#fkeys button:hover { border-color: var(--fg); }
+#fkeys small { display: block; font-weight: 400; color: #9fb0ad; font-size: .85em; }
+
+#keyhelp {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, .75);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 50;
+}
+#keyhelp[hidden] { display: none; }
+.kh-inner { background: var(--bg); border: 1px solid var(--fg); padding: 1em 1.5em; }
+.kh-inner pre { font: inherit; margin: 0 0 1em; }
+.kh-inner button { font: inherit; background: var(--fg); color: var(--bg); border: 0; padding: 3px 12px; cursor: pointer; }
+
+@media print {
+  body { background: #fff; color: #000; display: block; }
+  body { overflow: visible; }
+  #crt { background: #fff; width: auto; height: auto; display: block; }
+  #topbar, #statusbar, #fkeys, #cmd, #msg { display: none !important; }
+  #screen { text-shadow: none; color: #000; }
+  #screen::after { display: none; }
+  .fld { background: #fff; border-bottom: 1px dotted #000; }
+}
+
+/* ---- person photograph: in the right-hand margin when there is room, otherwise over the top right ---- */
+#photo {
+  position: absolute;
+  top: 3.2em;
+  right: max(.6em, calc((100% - 80ch) / 4 - 6em));
+  width: 12em;
+  margin: 0;
+  padding: .3em;
+  z-index: 2;
+  background: var(--bg);
+  border: 1px solid var(--fg);
+  text-align: center;
+  text-shadow: none;
+}
+#photo[hidden] { display: none; }
+#photo img { display: block; width: 100%; height: auto; min-height: 4em; }
+#photo .cap { font-size: .7em; margin-top: .3em; }
+@media print { #photo { position: static; float: right; } }

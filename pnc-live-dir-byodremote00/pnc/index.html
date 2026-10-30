@@ -1,0 +1,112 @@
+<!doctype html>
+<html lang="en-GB">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>PNC Terminal</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&display=swap">
+<link rel="stylesheet" href="css/pnc.css">
+</head>
+<body>
+<div id="crt">
+  <header id="topbar">
+    <div class="tb-row">
+      <span class="box" id="tb-srg">srg</span>
+      <span class="box grow">PNC HTE version 2.9.32.1185</span>
+      <span class="box grow" id="tb-conn">Connecting...</span>
+      <span class="box" id="tb-id">id1197</span>
+    </div>
+    <nav class="tb-menu">
+      <div class="menu">
+        <button type="button" data-menu="host">Host</button>
+        <div class="dropdown" id="menu-host">
+          <button type="button" data-act="logoff">Disconnect / Log off</button>
+          <button type="button" data-act="export">Export database (.json)</button>
+          <button type="button" data-act="import">Import database (.json)</button>
+          <button type="button" data-act="reset">Reset database to seed</button>
+        </div>
+      </div>
+      <div class="menu">
+        <button type="button" data-menu="view">View</button>
+        <div class="dropdown" id="menu-view">
+          <button type="button" data-act="ph-green">Phosphor: green</button>
+          <button type="button" data-act="ph-amber">Phosphor: amber</button>
+          <button type="button" data-act="ph-white">Phosphor: white</button>
+          <button type="button" data-act="scan">Toggle scanlines</button>
+          <button type="button" data-act="delay">Response delay on/off</button>
+          <button type="button" data-act="bigger">Text larger</button>
+          <button type="button" data-act="smaller">Text smaller</button>
+        </div>
+      </div>
+      <div class="menu"><button type="button" disabled>Email</button></div>
+      <span class="spacer"></span>
+      <button type="button" data-act="logoff">Reset</button>
+      <button type="button" data-act="keys">Type</button>
+    </nav>
+  </header>
+
+  <main id="screen">
+    <div id="content" aria-live="polite"></div>
+    <figure id="photo" hidden><img alt="PNC photograph" onerror="this.nextElementSibling.textContent='IMAGE NOT AVAILABLE'"><figcaption class="cap"></figcaption></figure>
+    <div id="msg"></div>
+    <div id="cmd" hidden>
+      <div class="row">TCODE <input class="fld" id="c-tcode" maxlength="3" style="width:3ch" placeholder="..." autocomplete="off" spellcheck="false"> ORIG <input class="fld" id="c-orig" maxlength="53" style="width:53ch" placeholder="....................................................." autocomplete="off" spellcheck="false"> REASON <input class="fld" id="c-reason" maxlength="2" style="width:2ch" placeholder=".." autocomplete="off" spellcheck="false"></div>
+      <div class="row">DATA  <input class="fld" id="c-data" maxlength="67" style="width:67ch" placeholder="..................................................................." autocomplete="off" spellcheck="false"> PTR <input class="fld" id="c-ptr" maxlength="1" style="width:1ch" value="N" autocomplete="off" spellcheck="false"></div>
+    </div>
+  </main>
+
+  <footer id="statusbar">
+    <span class="box">Type</span>
+    <span class="box grow sim">CROWN COPYRIGHT</span>
+    <span class="box" id="sb-term">----/LIVE</span>
+    <span class="box" id="sb-pos">1 1</span>
+  </footer>
+
+  <div id="fkeys">
+    <button type="button" data-key="Enter">SEND <small>Enter</small></button>
+    <button type="button" data-key="Escape">CLEAR <small>Esc</small></button>
+    <button type="button" data-key="PageUp">PREV <small>PgUp/F7</small></button>
+    <button type="button" data-key="PageDown">NEXT <small>PgDn/F8</small></button>
+    <button type="button" data-key="F1">MENU <small>F1</small></button>
+    <button type="button" data-key="F6">PHOTO <small>F6</small></button>
+    <button type="button" data-key="F9">PRINT <small>F9</small></button>
+    <button type="button" data-key="F12">LOGOFF <small>F12</small></button>
+  </div>
+</div>
+
+<div id="keyhelp" hidden>
+  <div class="kh-inner">
+    <pre>
+ KEYBOARD
+ ---------------------------------------------
+ ENTER ........ SEND (submit screen / run TCODE)
+ ESC .......... CLEAR SCREEN (#CL)
+ PGDN / F8 .... NEXT PAGE
+ PGUP / F7 .... PREVIOUS PAGE
+ F1 ........... TRANSACTION MENU (#MM)
+ F6 ........... SHOW / HIDE PHOTOGRAPH
+ F9 ........... PRINT CURRENT SCREEN
+ F12 .......... LOG OFF (#XX)
+ UP / DOWN .... MOVE BETWEEN FIELDS
+ TAB .......... NEXT FIELD
+
+ Fields auto-advance when full. Enter a
+ TCODE (e.g. #NE), ORIG (who/why/where, 4+
+ chars), REASON (1-9) and optional DATA,
+ then press ENTER. Blank DATA gives the
+ formatted input screen.
+    </pre>
+    <button type="button" data-act="keys">CLOSE</button>
+  </div>
+</div>
+<input type="file" id="importfile" accept="application/json,.json" hidden>
+
+<script src="js/data.js"></script>
+<script src="js/terminal.js"></script>
+<script src="js/transactions.js"></script>
+<script src="js/builder.js"></script>
+<script src="js/accounts.js"></script>
+<script>PNC.boot();</script>
+</body>
+</html>
